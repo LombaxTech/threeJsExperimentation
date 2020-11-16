@@ -1,9 +1,3 @@
-import { OrbitControls } from "./three.js"
-
-const controls = new OrbitControls();
-
-console.log(controls);
-
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -11,10 +5,6 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-
-const loader = THREE.OBJLoader;
-console.log(loader);
-
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -30,31 +20,34 @@ scene.add(cube);
 // camera.position.y = 5;
 camera.position.z = 5;
 
-
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
+
+const loader = new THREE.OBJLoader();
+loader.load(
+    "./bunny-5000.obj",
+    (obj) => scene.add(obj),
+    () => {},
+    (err) => console.log(err)
+);
 
 function animate() {
     requestAnimationFrame(animate);
 
-    cube.rotation.x += .01;
-    cube.rotation.y += .01;
-    cube.rotation.z += .01;
-
-
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    cube.rotation.z += 0.01;
 
     renderer.render(scene, camera);
 }
 animate();
 
-document.addEventListener('keydown', e => {
+document.addEventListener("keydown", (e) => {
     const key = e.key;
-    if (key === 'v') console.log('v') 
-    if (key === 'e') console.log('e')
-    if (key === 'f') console.log('f')
-    
-})
-
+    if (key === "v") console.log("v");
+    if (key === "e") console.log("e");
+    if (key === "f") console.log("f");
+});
 
 // camera.position.set(0, 0, 100);
 // camera.lookAt(0, 0, 0);
@@ -71,6 +64,5 @@ document.addEventListener('keydown', e => {
 // const line = new THREE.Line(geometry, material);
 // scene.add(line);
 // renderer.render(scene, camera);
-
 
 // * CW EXPERIMENTATION START

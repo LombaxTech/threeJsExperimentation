@@ -1,3 +1,9 @@
+import { OrbitControls } from "./three.js"
+
+const controls = new OrbitControls();
+
+console.log(controls);
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -5,6 +11,10 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
+
+const loader = THREE.OBJLoader;
+console.log(loader);
+
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -15,7 +25,11 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 const cube = new THREE.Mesh(geometry, material);
 
 scene.add(cube);
+
+// camera.position.x = 5;
+// camera.position.y = 5;
 camera.position.z = 5;
+
 
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
@@ -23,15 +37,24 @@ scene.add(axesHelper);
 function animate() {
     requestAnimationFrame(animate);
 
-    // cube.rotation.x += 0.1;
-    // cube.velocity.x += 0.01;
-    // camera.rotation.x += 0.001;
-    // camera.rotation.y += 0.001;
-    // camera.rotation.z += 0.001;
+    cube.rotation.x += .01;
+    cube.rotation.y += .01;
+    cube.rotation.z += .01;
+
+
 
     renderer.render(scene, camera);
 }
 animate();
+
+document.addEventListener('keydown', e => {
+    const key = e.key;
+    if (key === 'v') console.log('v') 
+    if (key === 'e') console.log('e')
+    if (key === 'f') console.log('f')
+    
+})
+
 
 // camera.position.set(0, 0, 100);
 // camera.lookAt(0, 0, 0);

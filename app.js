@@ -6,12 +6,52 @@ const camera = new THREE.PerspectiveCamera(
     1000
 );
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xffffff, 0);
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(2, 1.3, 1.2);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+const texture = new THREE.TextureLoader().load("./aot.jpg");
+
+const textureLoader = new THREE.TextureLoader();
+
+const cubeMaterials = [
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./aot.jpg"),
+        side: THREE.Double,
+    }),
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./bazinga.png"),
+        side: THREE.Double,
+    }),
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./energyBg.jpg"),
+        side: THREE.Double,
+    }),
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./kakashi.jpg"),
+        side: THREE.Double,
+    }),
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./moon.jpg"),
+        side: THREE.Double,
+    }),
+    new THREE.MeshBasicMaterial({
+        map: textureLoader.load("./test1.jpg"),
+        side: THREE.Double,
+    }),
+];
+
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+// const material = new THREE.MeshBasicMaterial({
+//     map: texture,
+//     wireframe: true,
+//     wireframeLineWidth: 4,
+// });
+const material = new THREE.MeshFaceMaterial(cubeMaterials);
+
 const cube = new THREE.Mesh(geometry, material);
 
 scene.add(cube);
@@ -23,13 +63,24 @@ camera.position.z = 5;
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
-const loader = new THREE.OBJLoader();
-loader.load(
+let bunny;
+
+const objLoader = new THREE.OBJLoader();
+objLoader.load(
     "./bunny-5000.obj",
-    (obj) => scene.add(obj),
+    (obj) => {
+        obj.scale.set(0.3, 0.3, 0.3);
+        scene.add(obj);
+        bunny = obj;
+    },
     () => {},
     (err) => console.log(err)
 );
+
+const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+scene.add(ambientLight);
+const pointLight = new THREE.PointLight(0xffffff, 1);
+camera.add(pointLight);
 
 function animate() {
     requestAnimationFrame(animate);
@@ -37,6 +88,10 @@ function animate() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
     cube.rotation.z += 0.01;
+
+    // bunny.rotation.x += 0.01;
+    // bunny.rotation.y += 0.01;
+    // bunny.rotation.z += 0.01;
 
     renderer.render(scene, camera);
 }

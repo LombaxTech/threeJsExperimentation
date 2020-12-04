@@ -9,7 +9,7 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0xffffff, 0);
+// renderer.setClearColor(0xffffff, 0);
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(2, 1.3, 1.2);

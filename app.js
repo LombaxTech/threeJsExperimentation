@@ -1,3 +1,9 @@
+// !! READ IMPORTANT
+// DO NOT UNCOMMENT 'BASIC SET UP'
+// UNCOMMENT TASKS AND START THE FILE TO RUN EACH TASK
+// COMMENT THE TASK WHEN RUNNING OTHER TASKS
+
+//! BASIC SET UP
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -9,11 +15,85 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-// renderer.setClearColor(0xffffff, 0);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(2, 1.3, 1.2);
-const texture = new THREE.TextureLoader().load("./aot.jpg");
+camera.position.z = 5;
+//! END OF BASIC SET UP
+
+//! TASK 1 DRAW A SIMPLE CUBE ==========
+// const geometry = new THREE.BoxGeometry();
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const cube = new THREE.Mesh(geometry, material);
+// scene.add(cube);
+
+// const animate = function () {
+//     requestAnimationFrame(animate);
+//     renderer.render(scene, camera);
+// };
+
+// animate();
+//! END OF TASK 1 ==========
+
+//! TASK 2 - DRAW COORDINATE SYSTEM AXES ==========
+// camera.position.z = 5;
+// camera.position.x = 5;
+// const axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper);
+
+// const animate = function () {
+//     requestAnimationFrame(animate);
+//     renderer.render(scene, camera);
+// };
+
+// animate();
+//! END OF TASK 2 ==========
+
+//! TASK 3 - ROTATE THE CUBE ==========
+// const geometry = new THREE.BoxGeometry();
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const cube = new THREE.Mesh(geometry, material);
+// scene.add(cube);
+
+// const animate = function () {
+//     requestAnimationFrame(animate);
+
+//     cube.rotation.x += 0.01;
+//     cube.rotation.y += 0.01;
+//     cube.rotation.z += 0.01;
+
+//     renderer.render(scene, camera);
+// };
+
+// animate();
+//! END OF TASK 3 ==========
+
+//! TASK 5 - TRANSLATE THE CAMERA ==========
+// const geometry = new THREE.BoxGeometry();
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const cube = new THREE.Mesh(geometry, material);
+// scene.add(cube);
+
+// COMMENT OUT ONE LINE TO SEE A MOVE IN THE Z AXIS
+// camera.position.z = 5;
+// camera.position.z = 3;
+
+// COMMENT OUT ONE LINE TO SEE A MOVE IN THE X AXIS
+// camera.position.x = 2;
+// camera.position.x = -2;
+
+// COMMENT OUT ONE LINE TO SEE A MOVE IN THE Y AXIS
+// camera.position.y = 1;
+// camera.position.y = -1;
+
+// const animate = function () {
+//     requestAnimationFrame(animate);
+//     renderer.render(scene, camera);
+// };
+
+// animate();
+//! END OF TASK 5 ==========
+
+//! TASK 7 - TEXTURE MAPPING ==========
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -44,65 +124,82 @@ const cubeMaterials = [
     }),
 ];
 
+const material = new THREE.MeshFaceMaterial(cubeMaterials);
+const geometry = new THREE.BoxGeometry();
+const cube = new THREE.Mesh(geometry, material);
+
+scene.add(cube);
+
+const animate = function () {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    cube.rotation.z += 0.01;
+
+    renderer.render(scene, camera);
+};
+
+animate();
+//! END OF TASK 7 ==========
+
+//! TASK 8 - LOAD A MESH MODEL FROM .obj ==========
+
+//! END OF TASK 8 ==========
+
+// const geometry = new THREE.BoxGeometry(2, 1.3, 1.2);
+// const texture = new THREE.TextureLoader().load("./aot.jpg");
+
 // const material = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 // const material = new THREE.MeshBasicMaterial({
 //     map: texture,
 //     wireframe: true,
 //     wireframeLineWidth: 4,
 // });
-const material = new THREE.MeshFaceMaterial(cubeMaterials);
 
-const cube = new THREE.Mesh(geometry, material);
+// // camera.position.x = 5;
+// // camera.position.y = 5;
+// camera.position.z = 5;
 
-scene.add(cube);
+// let bunny;
 
-// camera.position.x = 5;
-// camera.position.y = 5;
-camera.position.z = 5;
+// const objLoader = new THREE.OBJLoader();
+// objLoader.load(
+//     "./bunny-5000.obj",
+//     (obj) => {
+//         obj.scale.set(0.3, 0.3, 0.3);
+//         scene.add(obj);
+//         bunny = obj;
+//     },
+//     () => {},
+//     (err) => console.log(err)
+// );
 
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
+// const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+// scene.add(ambientLight);
+// const pointLight = new THREE.PointLight(0xffffff, 1);
+// camera.add(pointLight);
 
-let bunny;
+// function animate() {
+//     requestAnimationFrame(animate);
 
-const objLoader = new THREE.OBJLoader();
-objLoader.load(
-    "./bunny-5000.obj",
-    (obj) => {
-        obj.scale.set(0.3, 0.3, 0.3);
-        scene.add(obj);
-        bunny = obj;
-    },
-    () => {},
-    (err) => console.log(err)
-);
+//     cube.rotation.x += 0.01;
+//     cube.rotation.y += 0.01;
+//     cube.rotation.z += 0.01;
 
-const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
-scene.add(ambientLight);
-const pointLight = new THREE.PointLight(0xffffff, 1);
-camera.add(pointLight);
+//     // bunny.rotation.x += 0.01;
+//     // bunny.rotation.y += 0.01;
+//     // bunny.rotation.z += 0.01;
 
-function animate() {
-    requestAnimationFrame(animate);
+//     renderer.render(scene, camera);
+// }
+// animate();
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    cube.rotation.z += 0.01;
-
-    // bunny.rotation.x += 0.01;
-    // bunny.rotation.y += 0.01;
-    // bunny.rotation.z += 0.01;
-
-    renderer.render(scene, camera);
-}
-animate();
-
-document.addEventListener("keydown", (e) => {
-    const key = e.key;
-    if (key === "v") console.log("v");
-    if (key === "e") console.log("e");
-    if (key === "f") console.log("f");
-});
+// document.addEventListener("keydown", (e) => {
+//     const key = e.key;
+//     if (key === "v") console.log("v");
+//     if (key === "e") console.log("e");
+//     if (key === "f") console.log("f");
+// });
 
 // camera.position.set(0, 0, 100);
 // camera.lookAt(0, 0, 0);
